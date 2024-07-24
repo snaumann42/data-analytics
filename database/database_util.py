@@ -1,6 +1,5 @@
 import mysql.connector
 from mysql.connector import errorcode
-from database.database_mappings import column_mapping
 
 DB_NAME = 'data_analysis'
 
@@ -188,10 +187,3 @@ def create_tables(cursor):
             print(error.msg)
         else:
             print('ok')
-
-
-def translate_columns(column_name):
-    if column_name in column_mapping:
-        return column_mapping.get(column_name)
-    else:
-        return column_name

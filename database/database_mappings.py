@@ -1,39 +1,26 @@
-column_mapping = {
-    'CAND_ID': 'candidate_id',
-    'CAND_NAME': 'candidate_name',
-    'CAND_PTY_AFFILIATION': 'candidate_party_affiliation',
-    'CAND_ELECTION_YR': 'candidate_election_year',
-    'CAND_OFFICE_ST': 'candidate_office_state',
-    'CAND_OFFICE': 'candidate_office',
-    'CAND_OFFICE_DISTRICT': 'candidate_office_district',
-    'CAND_ICI': 'incumbent_challenger_status',
-    'CAND_STATUS': 'candidate_status',
-    'CAND_PCC': 'candidate_principal_campaign_committee',
-    'CAND_ST1': 'candidate_street1',
-    'CAND_ST2': 'candidate_street2',
-    'CAND_CITY': 'candidate_city',
-    'CAND_ST': 'candidate_state',
-    'CAND_ZIP': 'candidate_zip',
-    'FEC_ELECTION_YR': 'fec_election_year',
-    'CMTE_ID': 'committee_id',
-    'CMTE_TP': 'committee_type',
-    'CMTE_DSGN': 'committee_designation',
-    'LINKAGE_ID': 'linkage_id',
-    'AMNDT_IND': 'amendment_ind',
-    'RPT_TP': 'report_type',
-    'TRANSACTION_PGI': 'primary_general_indicator',
-    'ENTITY_TP': 'entity_type',
-    'TRANSACTION_DT': 'transaction_date',
-    'TRANSACTION_AMT': 'transaction_amount',
-    'TRAN_ID': 'transaction_id',
-    'FILE_NUM': 'report_id',
-    'MEMO_CD': 'memo_code',
-    'SUB_ID': 'FEC_record_id',
-    'TRANSACTION_TP': 'transaction_type',
+candidate_office_map = {
+    'H': 'House',
+    'P': 'President',
+    'S': 'Senate',
+    '': None
 }
 
-enum_mappings = [
-    ("committee_type", {
+incumbent_challenger_status_map = {
+    'C': 'Challenger',
+    'I': 'Incumbent',
+    'O': 'Open Seat',
+    '': None
+}
+
+candidate_status_map = {
+    'C': 'statutory candidate',
+    'F': 'statutory candidate for future election',
+    'N': 'not yet a statutory candidate',
+    'P': 'statutory candidate in prior cycle',
+    '': None
+}
+
+committee_type_map = {
         'C': 'communication cost',  # Organizations like corporations or unions may prepare communications for their
         # employees or members that advocate the election of specific candidates and they must disclose them under
         # certain circumstances. These are usually paid with direct corporate or union funds rather than from PACs.
@@ -65,30 +52,38 @@ enum_mappings = [
         # contributions from 50 people or are affiliated with another party committee that meets these requirements.
         'Z': 'national party nonfederal account',  # National party nonfederal accounts. Not permitted after enactment
         # of Bipartisan Campaign Reform Act of 2002.
-    }),
-    ("committee_designation", {
+        '': None
+    }
+
+committee_designation_map = {
         'A': 'Authorized by a candidate',
         'B': 'Lobbyist/Registrant PAC',
         'D': 'Leadership PAC',
         'J': 'Joint fundraiser',
         'P': 'Principal campaign committee of a candidate',
         'U': 'Unauthorized',
-    }),
-    ("election_type", {
+        '': None
+    }
+
+election_type_map = {
         'P': 'Primary',
         'G': 'General',
         'O': 'Other',
         'C': 'Convention',
         'R': 'Runoff',
         'S': 'Special',
-        'E': 'Recount'
-    }),
-    ("amendment_ind",{
+        'E': 'Recount',
+        '': None
+    }
+
+amendment_ind_map = {
         'N': 'new report',
         'A': 'amendment to report',
-        'T': 'termination of report'
-    }),
-    ("report_type", {
+        'T': 'termination of report',
+        '': None
+    }
+
+report_type_map = {
         '12C': 'Pre-convention',
         '12G': 'Pre-general',
         '12P': 'Pre-primary',
@@ -126,17 +121,54 @@ enum_mappings = [
         # in a race these and future independent expenditures must be reported. Due within 48 hours of receiving the
         # contribution or public distribution of the independent expenditure. 48 hour timing for independent expenditures
         # applies prior to 20 days before the election.
-        '24H': '24-hour'  # Within 20 days of an election once a PAC or party or other person has made independent
+        '24H': '24-hour',  # Within 20 days of an election once a PAC or party or other person has made independent
         # expenditures exceeding $1,000 in a race these and future independent expenditures must be reported. Due within
         # 24 hours of the public distribution of the independent expenditure.
-    }),
-    ("entity_type",{
+        '': None
+    }
+
+entity_type_map = {
         'CAN': 'Candidate',
         'CCM': 'Candidate Committee',
         'COM': 'Committee',
         'IND': 'Individual',
         'ORG': 'Organization',
         'PAC': 'Political Action Committee',
-        'PTY': 'Party Organization'
-    })
-]
+        'PTY': 'Party Organization',
+        '': None
+    }
+
+# keeping for now for documentation of field/column remapping
+# column_mapping = {
+#     'CAND_ID': 'candidate_id',
+#     'CAND_NAME': 'candidate_name',
+#     'CAND_PTY_AFFILIATION': 'candidate_party_affiliation',
+#     'CAND_ELECTION_YR': 'candidate_election_year',
+#     'CAND_OFFICE_ST': 'candidate_office_state',
+#     'CAND_OFFICE': 'candidate_office',
+#     'CAND_OFFICE_DISTRICT': 'candidate_office_district',
+#     'CAND_ICI': 'incumbent_challenger_status',
+#     'CAND_STATUS': 'candidate_status',
+#     'CAND_PCC': 'candidate_principal_campaign_committee',
+#     'CAND_ST1': 'candidate_street1',
+#     'CAND_ST2': 'candidate_street2',
+#     'CAND_CITY': 'candidate_city',
+#     'CAND_ST': 'candidate_state',
+#     'CAND_ZIP': 'candidate_zip',
+#     'FEC_ELECTION_YR': 'fec_election_year',
+#     'CMTE_ID': 'committee_id',
+#     'CMTE_TP': 'committee_type',
+#     'CMTE_DSGN': 'committee_designation',
+#     'LINKAGE_ID': 'linkage_id',
+#     'AMNDT_IND': 'amendment_ind',
+#     'RPT_TP': 'report_type',
+#     'TRANSACTION_PGI': 'primary_general_indicator',
+#     'ENTITY_TP': 'entity_type',
+#     'TRANSACTION_DT': 'transaction_date',
+#     'TRANSACTION_AMT': 'transaction_amount',
+#     'TRAN_ID': 'transaction_id',
+#     'FILE_NUM': 'report_id',
+#     'MEMO_CD': 'memo_code',
+#     'SUB_ID': 'FEC_record_id',
+#     'TRANSACTION_TP': 'transaction_type',
+# }
