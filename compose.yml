@@ -1,0 +1,13 @@
+services:
+  db:
+    ports:
+      - "3306:3306"
+    image: 'mysql:latest'
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${ROOT_PWD}
+      - MYSQL_USER=${USER_NAME}
+      - MYSQL_PASSWORD=${USER_PWD}
+      - MYSQL_DATABASE=data_analysis
+    volumes:
+      - ${FULL_FILE_PATH}

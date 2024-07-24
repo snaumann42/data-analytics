@@ -1,0 +1,3 @@
+This repository is meant to read in political from the FEC (Federal Election Committee). It was made with the intent to process files from https://www.fec.gov/data/browse-data/?tab=bulk-data and allow others to analysis the data. There will be some default processing provided.
+
+Files from the FEC should be placed in a data-file directory along with their matching 'header_file'. All headers with matching names will be assumed to be the same data/joinable.
