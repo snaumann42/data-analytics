@@ -15,7 +15,7 @@ class Ingest:
     _insert_statement = ''
 
     @classmethod
-    def evaluate(cls, database_cursor):
+    async def evaluate(cls, database_conn):
         base_path = cls.base_ingest_path
         ingest_files = filter(lambda f: os.path.isfile(base_path + f)
                                         and re.search(cls.ingest_file_format, f),
@@ -36,11 +36,11 @@ class Ingest:
                         count += 1
                     if count % 5000 == 0:  # write every 5000 rows to the database
                         processed_date = cls._transform(row_data)
-                        cls._load(database_cursor, processed_date)
+                        await cls._load(database_conn, processed_date)
                         row_data = []
                 if row_data:  # ensure if there are any leftover rows are written to the database
                     processed_date = cls._transform(row_data)
-                    cls._load(database_cursor, processed_date)
+                    await cls._load(database_conn, processed_date)
             print("Completed file: %s, %s lines ingested, %s bad lines ignored" % (file, count, bad_lines))
 
     @classmethod
@@ -48,6 +48,7 @@ class Ingest:
         pass
 
     @classmethod
-    def _load(cls, database_cursor, rows):
-        database_cursor.executemany(cls._insert_statement, rows)
+    async def _load(cls, database_conn, rows):
+        print(rows[0])
+        await database_conn.execute_insert(cls._insert_statement, rows[0])
 

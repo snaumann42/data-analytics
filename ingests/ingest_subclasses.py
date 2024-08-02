@@ -2,6 +2,13 @@ from ingests.ingest import Ingest
 from database import database_mappings
 
 
+def lookup_enum(value, enum):
+    try:
+        return enum[value].value
+    except KeyError:
+        return None
+
+
 class IngestCandidateMasterCN(Ingest):
 
     ingest_file_format = "cn.txt"
@@ -27,14 +34,11 @@ class IngestCandidateMasterCN(Ingest):
     @classmethod
     def _transform(cls, rows):
         for row in rows:
-            row[cls._candidate_office_index] = (
-                database_mappings.candidate_office_map[
-                    row[cls._candidate_office_index]])
-            row[cls._incumbent_challenger_status_index] = (
-                database_mappings.incumbent_challenger_status_map[
-                    row[cls._incumbent_challenger_status_index]])
-            row[cls._candidate_status_index] = (
-                database_mappings.candidate_status_map[
-                    row[cls._candidate_status_index]])
+            row[cls._candidate_office_index] = lookup_enum(row[cls._candidate_office_index],
+                                                           database_mappings.CandidateOffice)
+            row[cls._incumbent_challenger_status_index] = lookup_enum(row[cls._incumbent_challenger_status_index],
+                                                                      database_mappings.IncumbentChallengerStatus)
+            row[cls._candidate_status_index] = lookup_enum(row[cls._candidate_status_index],
+                                                           database_mappings.CandidateStatus)
 
         return [tuple(row) for row in rows]  # inorder to use row to format the query string, it must be a tuple

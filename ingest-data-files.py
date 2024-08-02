@@ -1,31 +1,27 @@
-import config
-
-import mysql.connector
+import asyncio
 
 from database import database_util
 from ingests.ingest_subclasses import IngestCandidateMasterCN
 
-connection = mysql.connector.connect(
-    host=config.URL,
-    database=database_util.DB_NAME,
-    user=config.USERNAME,
-    password=config.PASSWORD
-)
-cursor = connection.cursor()
+from tortoise import connections
 
 
-def main():
-    IngestCandidateMasterCN.evaluate(cursor)
+async def main():
+    await setup_db()
+    conn: BaseDBAsyncClient = connections.get("default")
+    await IngestCandidateMasterCN.evaluate(conn)
 
+    await connections.close_all()
+
+
+# Setup mysql database
+async def setup_db():
+    try:
+        await database_util.db_init()
+    except Exception as e:
+        pass
 
 if __name__ == '__main__':
-    # Setup mysql database
-    database_util.create_database(connection, cursor)
-    database_util.create_tables(cursor)
 
     # Process files into tables
-    main()
-
-    # Close resources
-    cursor.close()
-    connection.close()
+    asyncio.run(main())
