@@ -19,12 +19,12 @@ class CandidateOffice(Enum):
 
 
 class CommitteeDesignation(Enum):
-        A = "Authorized by candidate"
-        B = "Lobbyist Registrant PAC"
-        D = "Leadership PAC"
-        J = "Joint fundraiser"
-        P = "Principal campaign committee of candidate"
-        U = "Unauthorized"
+    A = "Authorized by candidate"
+    B = "Lobbyist Registrant PAC"
+    D = "Leadership PAC"
+    J = "Joint fundraiser"
+    P = "Principal campaign committee of candidate"
+    U = "Unauthorized"
 
 
 class IncumbentChallengerStatus(Enum):
@@ -41,36 +41,54 @@ class CandidateStatus(Enum):
 
 #
 # committee_type_map = {
-#         'C': 'communication cost',  # Organizations like corporations or unions may prepare communications for their
-#         # employees or members that advocate the election of specific candidates and they must disclose them under
-#         # certain circumstances. These are usually paid with direct corporate or union funds rather than from PACs.
-#         'D': 'delegate committee',  # Delegate committees are organized for the purpose of influencing the selection of
-#         # delegates to Presidential nominating conventions. The term includes a group of delegates, a group of
+#         'C': 'communication cost',  # Organizations like corporations or
+# unions may prepare communications for their employees or members that
+# advocate the election of specific candidates and they must disclose them
+# under certain circumstances. These are usually paid with direct corporate or
+# union funds rather than from PACs.
+#         'D': 'delegate committee',  # Delegate committees are organized for
+# the purpose of influencing the selection of delegates to Presidential
+# nominating conventions. The term includes a group of delegates, a group of
 #         # individuals seeking to become delegates, and a group of in
-#         'E': 'electioneering communication',  # Groups (other than PACs) making electioneering communications
-#         'H': 'house',  # Campaign committees for candidates for the U.S. House of Representatives
-#         'I': 'independent expenditor',  # Individuals or groups (other than PACs) making independent expenditures
+#         'E': 'electioneering communication',  # Groups (other than PACs)
+# making electioneering communications
+#         'H': 'house',  # Campaign committees for candidates for the U.S.
+# House of Representatives
+#         'I': 'independent expenditor',  # Individuals or groups (other than
+# PACs) making independent expenditures
 #         # over $250 in a year must disclose those expenditures
-#         'N': 'PAC - nonqualified',  # PACs that have not yet been in existence for six months and received contributions
-#         # from 50 people and made contributions to five federal candidates. These committees have lower limits for their
+#         'N': 'PAC - nonqualified',  # PACs that have not yet been in
+# existence for six months and received contributions
+#         # from 50 people and made contributions to five federal candidates.
+# These committees have lower limits for their
 #         # contributions to candidates.
-#         'O': 'independent expenditure-only (Super PACs)',  # Political Committee that has filed a statement consistent
+#         'O': 'independent expenditure-only (Super PACs)',  # Political
+# Committee that has filed a statement consistent
 #         # with AO 2010-09 or AO 2010-11.
-#         'P': 'presidential',  # Campaign committee for candidate for U.S. President
-#         'Q': 'PAC - qualified',  # PACs that have been in existence for six months and received contributions from 50
+#         'P': 'presidential',  # Campaign committee for candidate for U.S.
+# President
+#         'Q': 'PAC - qualified',  # PACs that have been in existence for six
+# months and received contributions from 50
 #         # people and made contributions to five federal candidates
 #         'S': 'senate',  # Campaign committee for candidate for Senate
 #         'U': 'single-candidate independent expenditure',
 #         'V': 'Hybrid PAC (with Non-Contribution Account) - Nonqualified',
-#         # https://www.fec.gov/help-candidates-and-committees/registering-pac/bank-accounts-nonconnected-pacs/
+#         # https://www.fec.gov/help-candidates-and-committees/registering-pac/
+# bank-accounts-nonconnected-pacs/
 #         'W': 'Hybrid PAC (with Non-Contribution Account) - Qualified',
-#         # https://www.fec.gov/help-candidates-and-committees/registering-pac/bank-accounts-nonconnected-pacs/
-#         'X': 'Party - nonqualified',  # Party committees that have not yet been in existence for six months and received
-#         # contributions from 50 people, unless they are affiliated with another party committee that has met these
+#         # https://www.fec.gov/help-candidates-and-committees/registering-pac/
+# bank-accounts-nonconnected-pacs/
+#         'X': 'Party - nonqualified',  # Party committees that have not yet
+# been in existence for six months and received
+#         # contributions from 50 people, unless they are affiliated with
+# another party committee that has met these
 #         # requirements.
-#         'Y': 'Party - qualified',  # Party committees that have existed for at least six months and received
-#         # contributions from 50 people or are affiliated with another party committee that meets these requirements.
-#         'Z': 'national party nonfederal account',  # National party nonfederal accounts. Not permitted after enactment
+#         'Y': 'Party - qualified',  # Party committees that have existed for
+# at least six months and received
+#         # contributions from 50 people or are affiliated with another party
+# committee that meets these requirements.
+#         'Z': 'national party nonfederal account',  # National party
+# nonfederal accounts. Not permitted after enactment
 #         # of Bipartisan Campaign Reform Act of 2002.
 #         '': None
 #     }
@@ -127,14 +145,19 @@ class CandidateStatus(Enum):
 #         'YE': 'Year end',
 #         '90S': 'Post inaugural supplement',
 #         '90D': 'Post inaugural',
-#         '48H': '48-hour',  # Report of specific contribution of $1,000 or more made to a campaign within 20 days of an
-#         # election. Alternatively, once a PAC or party or other person has made independent expenditures exceeding $10,000
-#         # in a race these and future independent expenditures must be reported. Due within 48 hours of receiving the
-#         # contribution or public distribution of the independent expenditure. 48 hour timing for independent expenditures
-#         # applies prior to 20 days before the election.
-#         '24H': '24-hour',  # Within 20 days of an election once a PAC or party or other person has made independent
-#         # expenditures exceeding $1,000 in a race these and future independent expenditures must be reported. Due within
-#         # 24 hours of the public distribution of the independent expenditure.
+#         '48H': '48-hour',  # Report of specific contribution of $1,000 or
+#           more made to a campaign within 20 days of an election.
+#           Alternatively, once a PAC or party or other person has made
+#           independent expenditures exceeding $10,000 in a race these and
+#           future independent expenditures must be reported. Due within 48
+#           hours of receiving the contribution or public distribution of the
+#           independent expenditure. 48 hour timing for independent
+#           expenditures applies prior to 20 days before the election.
+#         '24H': '24-hour',  # Within 20 days of an election once a PAC or
+#           party or other person has made independent expenditures exceeding
+#           $1,000 in a race these and future independent expenditures must be
+#           reported. Due within 24 hours of the public distribution of the
+#           independent expenditure.
 #         '': None
 #     }
 #

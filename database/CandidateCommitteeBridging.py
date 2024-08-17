@@ -4,7 +4,8 @@ from tortoise.models import Model
 from database.database_mappings import CommitteeDesignation
 
 
-# Candidate-committee linkages - contains one record for each candidate to committee linkage.
+# Candidate-committee linkages - contains one record for each candidate to
+# committee linkage.
 class CandidateCommitteeBridging(Model):
     candidate_election_year = fields.SmallIntField()
     FEC_election_year = fields.SmallIntField()
@@ -17,4 +18,5 @@ class CandidateCommitteeBridging(Model):
     )
     linkage_id = fields.BigIntField()
 
-    candidate_id = fields.ForeignKeyField("models.Candidate", related_name="candidate_id")
+    candidate_id = fields.ForeignKeyField("models.Candidate",
+                                          related_name="candidate_id")

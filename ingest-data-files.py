@@ -3,7 +3,7 @@ import asyncio
 from database import database_util
 from ingests.ingest_subclasses import IngestCandidateMasterCN
 
-from tortoise import connections
+from tortoise import BaseDBAsyncClient, connections
 
 
 async def main():
@@ -18,7 +18,7 @@ async def main():
 async def setup_db():
     try:
         await database_util.db_init()
-    except Exception as e:
+    except Exception:
         pass
 
 if __name__ == '__main__':
